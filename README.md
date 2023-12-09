@@ -28,3 +28,22 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+
+Huddle
+
+useDataMessage
+
+https://alpha.docs.huddle01.com/docs/React/hooks/useDataMessage
+
+for audio stream
+
+crweate a separate audio object
+
+
+https://staging.push.org/dashboard
+
+create a button for people to subscribe to the channel
+https://push.org/docs/notifications/build/manage-subscriptions/
+https://push.org/docs/notifications/build/send-notification/
