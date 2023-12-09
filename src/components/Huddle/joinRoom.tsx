@@ -1,15 +1,15 @@
-import { useLocalPeer, usePeerIds, useRoom } from '@huddle01/react/hooks';
+import { useRoom } from '@huddle01/react/hooks';
 
 import { getJoinRoomToken, getHuddleRoomDetail } from '../../services/huddle';
 import { useState } from 'react';
 
 const JoinHuddleRoom = ({ roomId, address }: any) => {
     const [roomJoined, setRoomJoined] = useState<boolean>(false);
-    const { peerIds } = usePeerIds({ roles: ["host", "co-host"] }); // Get Hosts And Cohost's peerIds
+    // const { peerIds } = usePeerIds({ roles: ["host", "co-host"] }); // Get Hosts And Cohost's peerIds
 
-    const localPeer: any = useLocalPeer({
-        onMetadataUpdated(metadata: any) {},
-      });
+    // const localPeer: any = useLocalPeer({
+    //     onMetadataUpdated(metadata: any) {},
+    //   });
 
     const { joinRoom, leaveRoom } = useRoom({
         onJoin: () => {

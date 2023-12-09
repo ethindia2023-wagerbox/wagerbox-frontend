@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 
 import { HuddleProvider, HuddleClient } from '@huddle01/react';

@@ -2,7 +2,7 @@ import lighthouse from '@lighthouse-web3/sdk'
 import { DealParameters } from '@lighthouse-web3/sdk/dist/types';
 
 const API_KEY = import.meta.env.VITE_LIGHTHOUSE_KEY
-const PUB_KEY = import.meta.env.VITE_LIGHTHOUSE_PKEY
+// const PUB_KEY = import.meta.env.VITE_LIGHTHOUSE_PKEY
 
 export const uploadFile = async (files: any, progressCallback: any) => {
     // Push file to lighthouse node

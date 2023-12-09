@@ -1,5 +1,5 @@
-import { CSSProperties, useEffect, useState } from "react";
-import { useQuery, fetchQuery } from "@airstack/airstack-react";
+import { CSSProperties, useState } from "react";
+import { fetchQuery } from "@airstack/airstack-react";
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override: CSSProperties = {
@@ -9,15 +9,14 @@ const override: CSSProperties = {
 };
 
 import {
-    QueryResponse,
     fetchENS,
     fetchNFTs
 } from '../services/airstack'
 
 const Airstack = () => {
-    let [color, setColor] = useState("#ffffff");
-    let [ensName, setENSName] = useState<string>("vitalik.eth");
-    let [blockchain, setBlockchain] = useState<string>("ethereum");
+    let [color] = useState("#ffffff");
+    let [ensName] = useState<string>("vitalik.eth");
+    let [blockchain] = useState<string>("ethereum");
     const [loading, setLoading] = useState<boolean>(false);
     const [inputTxt, setInputTxt] = useState<string>("");
     const [data, setData] = useState<any>([]);
@@ -68,7 +67,7 @@ const Airstack = () => {
             <div className="p-10 flex flex-col gap-4">
                 <input className="input input-bordered w-full" type="text" value={inputTxt} placeholder="Enter address" onChange={(e: any) => setInputTxt(e.target.value)} />
                 <div className="flex flex-row gap-4">
-                    {/* <button className="btn btn-primary" onClick={fetchData}>Fetch Data</button> */}
+                    <button className="btn btn-primary" onClick={fetchData}>Fetch Data</button>
                     <button className="btn btn-primary" onClick={fetchNfts}>Fetch NFT Data</button>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
