@@ -1,36 +1,38 @@
 import { PushAPI } from '@pushprotocol/restapi';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useWalletClient } from 'wagmi'
+
+import {
+    fetchUserNotifications,
+    sendNotification,
+    initUser
+} from '../services/pushprotocol'
 
 
 const PushNotification = () => {
-    const { data: walletClient } = useWalletClient()
+    const { data: walletClient } = useWalletClient();
+    const [pushUser, setPushUser] = useState<PushAPI>();
 
     const pushNot = async () => {
-        const account = walletClient as any;
-        if (account) {
-            const userAlice = await PushAPI.initialize(
-                account,
-                { 
-                    env: 'staging' as any 
-                }
-            );
-
-            // Send a notification to users of your protocol
-            const apiResponse = await userAlice.channel.send(['*'], {
-                notification: {
-                    title: 'Hello World Notification',
-                    body: 'Web3 native notifications are here!',
-                }
+        if (pushUser) {
+            await sendNotification(pushUser, {
+                title: 'Hello World Notification',
+                body: 'Web3 native notifications are here!',
             });
 
-            console.log(apiResponse);
+            const notifications = await fetchUserNotifications(pushUser);
+            console.log(notifications);
         }
     };
 
     useEffect(() => {
-        // pushNot();
-    }, [walletClient])
+        const account = walletClient as any;
+        if (account) {
+            initUser(account).then((user: PushAPI) => {
+                setPushUser(user);
+            });
+        }
+    }, [walletClient]);
 
     return (
         <div className='flex flex-col gap-4 p-10'>

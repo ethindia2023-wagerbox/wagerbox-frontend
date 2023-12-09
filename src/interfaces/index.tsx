@@ -31,3 +31,8 @@ export interface HuddleJoinRoomResp {
     hostUrl: string;
     redirectUrl: string;
 };
+
+export interface VideoPlayerParams {
+    videoStream: MediaStream | null;
+    audioStream: MediaStream | null;
+}

@@ -2,25 +2,27 @@ import {
     useLocalVideo,
     useLocalAudio,
     usePeerIds,
-    useRemoteVideo
+    useRemoteVideo,
+    useRemoteAudio
 } from '@huddle01/react/hooks';
 import { useEffect } from 'react';
 
-import ReactPlayer from 'react-player';
+import VideoPlayer from '../VideoPlayer';
 
 const RemotePeer = ({ peerId }: any) => {
-    const { stream } = useRemoteVideo({ peerId });
+    const { stream: videoStream } = useRemoteVideo({ peerId });
+    const { stream: audioStream } = useRemoteAudio({ peerId });
 
     return (
         <div>
-            <ReactPlayer url={stream as MediaStream} />
+            <VideoPlayer videoStream={videoStream} audioStream={audioStream}/>
         </div>
     )
 };
 
 const HuddleViewRoom = () => {
-    const { enableVideo, disableVideo } = useLocalVideo();
-    const { enableAudio, disableAudio } = useLocalAudio();
+    const { stream: videoStream, enableVideo, disableVideo } = useLocalVideo();
+    const { stream: audioStream, enableAudio, disableAudio } = useLocalAudio();
 
     const { peerIds } = usePeerIds({ roles: ["host", "co-host"] }); // Get Hosts And Cohost's peerIds
 
@@ -46,8 +48,8 @@ const HuddleViewRoom = () => {
 
     return (
         <div className='flex flex-col gap-4'>
-
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-3'>
+                <VideoPlayer videoStream={videoStream} audioStream={audioStream}/>
                 {peerIds.map(peerId =>
                     <RemotePeer key={peerId} peerId={peerId} />
                 )}
