@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 
 import Landing from './pages/Landing';
 import Explore from './pages/Explore';
+import Media from './pages/Media';
 
 let router: RouteObject[] = [
     {
@@ -15,6 +16,11 @@ let router: RouteObject[] = [
         path: '/explore',
         id: 'explore',
         element: <Explore />
+    },
+    {
+        path: '/media',
+        id: 'media',
+        element: <Media />
     },
 ];
 
