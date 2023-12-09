@@ -57,7 +57,7 @@ const HuddleComp = () => {
             {newCreatedRoom &&
                 <div className="flex flex-col gap-4 p-5 bg-yellow">
                     <p>New Room: {newCreatedRoom?.data.roomId}</p>
-                    <JoinHuddleRoom roomId={newCreatedRoom?.data.roomId} />
+                    <JoinHuddleRoom roomId={newCreatedRoom?.data.roomId} address={address} />
                 </div>
             }
 
@@ -65,7 +65,7 @@ const HuddleComp = () => {
                 {huddleRooms.map((obj: HuddleRoomObj) =>
                     <div key={obj.roomId} className="flex flex-col gap-4 p-5 bg-yellow rounded">
                         <p className="font-bold">Room: {obj.roomId}</p>
-                        <JoinHuddleRoom roomId={obj.roomId} />
+                        <JoinHuddleRoom roomId={obj.roomId} address={address} />
                     </div>
                 )}
             </div>

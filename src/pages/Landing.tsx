@@ -20,12 +20,14 @@ const Landing = () => {
                 <img src="/img/header.png" />
                 <div className="absolute left-10 top-1/4 text-white flex flex-col gap-4">
                     <div className="flex flex-col gap-4 text-5xl font-bold">
-                        <p>Beyond The</p>
+                        <img className="w-1/2" src="/img/logo.png" />
                         <p className="flex flex-row gap-4">
-                            <span className="text-yellow">Past</span>
-                            <span>, Before</span>
+                            <span>Beyond The</span>
+                            <span className="text-yellow">Past,</span>
                         </p>
-                        <p>The Future</p>
+                        <p className="flex flex-row gap-4">
+                            <span>Before The Future</span>
+                        </p>
                     </div>
                     <p className="flex flex-col font-bold text-xl">
                         <span>Unlock Your Sports Predictions Power with Wagerbox</span>
@@ -56,9 +58,9 @@ const Landing = () => {
             <div className="bg-[#211551] flex flex-col gap-4 p-5 items-center">
                 <div className="font-bold text-white text-3xl items-center flex flex-col">
                     <p>Choose your</p>
-                    <p>
+                    <p className="flex flex-row gap-4">
                         <span className="text-yellow">Favourite</span>
-                        <span>Games To</span>
+                        <span>Game Streams To</span>
                     </p>
                     <p>Bet on</p>
                 </div>
@@ -75,8 +77,8 @@ const Landing = () => {
             </div>
 
             <div className="bg-[#000000] flex flex-col items-center p-5 text-3xl">
-                <p className="text-white font-bold">How it works</p>
-                <img src="/img/howitworks.png"/>
+                {/* <p className="text-white font-bold">How it works</p> */}
+                {/* <img src="/img/howitworks.png"/> */}
             </div>
         </>
     )

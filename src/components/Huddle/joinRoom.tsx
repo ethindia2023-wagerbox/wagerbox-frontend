@@ -1,10 +1,15 @@
-import { useRoom } from '@huddle01/react/hooks';
+import { useLocalPeer, usePeerIds, useRoom } from '@huddle01/react/hooks';
 
-import { getJoinRoomToken } from '../../services/huddle';
+import { getJoinRoomToken, getHuddleRoomDetail } from '../../services/huddle';
 import { useState } from 'react';
 
-const JoinHuddleRoom = ({ roomId }: any) => {
+const JoinHuddleRoom = ({ roomId, address }: any) => {
     const [roomJoined, setRoomJoined] = useState<boolean>(false);
+    const { peerIds } = usePeerIds({ roles: ["host", "co-host"] }); // Get Hosts And Cohost's peerIds
+
+    const localPeer: any = useLocalPeer({
+        onMetadataUpdated(metadata: any) {},
+      });
 
     const { joinRoom, leaveRoom } = useRoom({
         onJoin: () => {
@@ -15,12 +20,22 @@ const JoinHuddleRoom = ({ roomId }: any) => {
             console.log('Left the room');
             setRoomJoined(false);
         },
+        onWaiting: (data: any) => {
+            console.log(data)
+        },
+        onFailed: (data: any) => {
+            console.log(data)
+        }
     });
 
     const JoinHuddleRoom = async () => {
-        const obj = await getJoinRoomToken(roomId, 'host');
+        const roomDetail = await getHuddleRoomDetail(roomId);
+
+        const userType = roomDetail.hostWalletAddress.indexOf(address) === -1 ? 'guest' : 'host';
+
+        const obj = await getJoinRoomToken(roomId, userType);
         if (obj?.token) {
-            joinRoom({
+            await joinRoom({
                 roomId,
                 token: obj.token
             });

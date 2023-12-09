@@ -3,7 +3,8 @@ import {
     HuddleCreateRoomParams,
     HuddleCreateRoomResp,
     HuddleRoomsResp,
-    HuddleJoinRoomResp
+    HuddleJoinRoomResp,
+    RoomDetailResp
 } from '../../interfaces';
 
 const HUDDLE_API_KEY = import.meta.env.VITE_HUDDLE_API_KEY;
@@ -48,6 +49,25 @@ export const getHuddleRooms = async (): Promise<HuddleRoomsResp | null> => {
             }
         );
         return resp.data as HuddleRoomsResp;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
+export const getHuddleRoomDetail = async (roomId: string): Promise<any> => {
+    const url = `${API_URL}/room-details/${roomId}`;
+    try {
+        const resp = await axios.get(
+            url,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': HUDDLE_API_KEY,
+                },
+            }
+        );
+        return resp.data as RoomDetailResp;
     } catch (error) {
         console.log(error);
         return null;

@@ -7,6 +7,8 @@ import {
 } from '@huddle01/react/hooks';
 import { useEffect } from 'react';
 
+import { transcribeAudio } from '../../services/assemblyai';
+
 import VideoPlayer from '../VideoPlayer';
 
 const RemotePeer = ({ peerId }: any) => {
@@ -45,6 +47,12 @@ const HuddleViewRoom = () => {
     useEffect(() => {
         console.log(peerIds)
     }, [peerIds])
+
+    useEffect(() => {
+        if(audioStream) {
+
+        }
+    }, [audioStream])
 
     return (
         <div className='flex flex-col gap-4'>

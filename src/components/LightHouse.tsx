@@ -1,8 +1,6 @@
-import lighthouse from '@lighthouse-web3/sdk'
-import { DealParameters } from '@lighthouse-web3/sdk/dist/types';
 import { useState } from 'react';
 
-const API_KEY = import.meta.env.VITE_LIGHTHOUSE_KEY
+import { uploadJson, uploadFile } from '../services/lighthouse';
 
 const LightHouse = () => {
     const [files, setFiles] = useState<any>();
@@ -13,45 +11,31 @@ const LightHouse = () => {
         console.log(percentageDone)
     };
 
-    const uploadFile = async () => {
-        // Push file to lighthouse node
-        // Both file and folder are supported by upload function
-        // Third parameter is for multiple files, if multiple files are to be uploaded at once make it true
-        // Fourth parameter is the deal parameters, default null
-        const deal: DealParameters = {
-            miner: [],
-            num_copies: 1,
-            repair_threshold: 1,
-            renew_threshold: 1,
-            deal_duration: 1,
-            network: ""
-        }
-        const output = await lighthouse.upload(
+    const uploadFileToLighthouse = async () => {
+        const ipfsUrl = await uploadFile(
             files,
-            API_KEY,
-            false,
-            deal,
             progressCallback
         )
-        console.log('File Status:', output)
-        /*
-          output:
-            data: {
-              Name: "filename.txt",
-              Size: 88000,
-              Hash: "QmWNmn2gr4ZihNPqaC5oTeePsHvFtkWNpjY3cD6Fd5am1w"
-            }
-          Note: Hash in response is CID.
-        */
+        console.log(ipfsUrl)
+    };
 
-        console.log('Visit at https://gateway.lighthouse.storage/ipfs/' + output.data.Hash)
-    }
+    const uploadJsonToLighthouse = async () => {
+        const ipfsUrl = await uploadJson(
+            { title: "Hello World" }
+        )
+        console.log(ipfsUrl)
+    };
 
     return (
-        <div>
+        <div className='flex flex-row gap-10 p-5'>
             LightHouse
-            <input onChange={e=>setFiles(e.target.files)} type="file" />
-            <button onClick={uploadFile}>Upload to Lighthouse</button>
+            <div className='flex flex-col gap-4'>
+                <input
+                    className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                    onChange={e => setFiles(e.target.files)} type="file" />
+                <button className='btn btn-primary w-40' onClick={uploadFileToLighthouse}>Upload to Lighthouse</button>
+            </div>
+            <button className='btn btn-secondary w-40' onClick={uploadJsonToLighthouse}>Upload Json to Lighthouse</button>
         </div>
     )
 };

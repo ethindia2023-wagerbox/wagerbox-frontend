@@ -36,3 +36,16 @@ export interface VideoPlayerParams {
     videoStream: MediaStream | null;
     audioStream: MediaStream | null;
 }
+
+export interface RoomDetailResp {
+    roomId: string;
+    title: string;
+    description: string | null;
+    meetingLink: string;
+    startTime: string | null;
+    expiryTime: string | null;
+    videoOnEntry: boolean;
+    muteOnEntry: boolean;
+    roomLocked: boolean;
+    hostWalletAddress: string[];
+}
