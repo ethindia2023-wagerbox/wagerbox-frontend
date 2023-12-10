@@ -76,7 +76,7 @@ const Airstack = ({ user }: any) => {
                     <button className="btn btn-primary" onClick={fetchNfts}>Fetch NFT Data</button>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
-                    {data.map((k: any) =>
+                    {data?.map((k: any) =>
                         <img key={k.tokenId} src={k?.tokenNfts?.contentValue?.image?.small}/>
                     )}
                 </div>
