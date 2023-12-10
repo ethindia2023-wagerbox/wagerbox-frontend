@@ -15,7 +15,7 @@ let router: RouteObject[] = [
         element: <Landing />
     },
     {
-        path: '/explore',
+        path: '/explore/:user',
         id: 'explore',
         element: <Explore />
     },

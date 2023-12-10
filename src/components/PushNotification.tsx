@@ -25,18 +25,23 @@ const PushNotification = () => {
         }
     };
 
-    useEffect(() => {
+    const initPush = async () => {
         const account = walletClient as any;
         if (account) {
             initUser(account).then((user: PushAPI) => {
                 setPushUser(user);
             });
         }
+    };
+
+    useEffect(() => {
+
     }, [walletClient]);
 
     return (
         <div className='flex flex-col gap-4 p-10'>
             Push Protocol Notification
+            <button className="btn btn-warning" onClick={initPush}>Init Push</button>
             <button className='btn btn-success w-40' onClick={pushNot}>Send Notification</button>
         </div>
     )

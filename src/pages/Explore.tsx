@@ -1,10 +1,13 @@
 import Airstack from "../components/Airstack";
-import PushNotification from "../components/PushNotification";
-import LightHouse from "../components/LightHouse";
+// import PushNotification from "../components/PushNotification";
+// import LightHouse from "../components/LightHouse";
+
+import { useParams } from "react-router-dom";
 
 import {getMatches} from "../services/thegraph";
 
 const Explore = () => {
+    const { user } = useParams();
 
     const onClick = async () => {
         const data = await getMatches();
@@ -13,13 +16,13 @@ const Explore = () => {
 
     return (
         <div>
-            <Airstack />
-            <PushNotification />
-            <LightHouse />
+            <Airstack user={user} />
+            {/* <PushNotification /> */}
+            {/* <LightHouse /> */}
 
-            <button className="btn btn-warning" onClick={onClick}>
+            {/* <button className="btn btn-warning" onClick={onClick}>
                 fetch matches
-            </button>
+            </button> */}
         </div>
     )
 };

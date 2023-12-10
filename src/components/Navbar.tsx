@@ -1,4 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
@@ -20,10 +21,13 @@ const Navbar = () => {
                     </a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><a>Create</a></li>
-                        <li><a>My Bets</a></li>
-                        <li><a>Profile</a></li>
+                    <ul className="menu menu-horizontal px-2 font-bold">
+                        <li>
+                            <Link to="/tournaments">Tournaments</Link>
+                        </li>
+                        <li>
+                            <Link to="/explore">Explore</Link>
+                        </li>
                     </ul>
                 </div>
                 <div className="navbar-end">

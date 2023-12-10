@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const TournamentThumb = ({ obj }: any) => {
 
     useEffect(() => {
-        console.log(obj)
+        // console.log(obj)
     }, [obj])
 
     return (

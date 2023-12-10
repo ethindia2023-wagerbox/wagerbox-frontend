@@ -20,5 +20,5 @@ export const getMatches = async () => {
             'Content-Type': 'application/json',
         },
     });
-    return resp.data.data;
+    return resp?.data?.data?.matchCreateds;
 };

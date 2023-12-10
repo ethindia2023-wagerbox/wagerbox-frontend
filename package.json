@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@airstack/airstack-react": "^0.6.0",
+    "@airstack/airstack-react": "^0.6.1",
     "@huddle01/react": "^1.0.0-alpha.57",
     "@lighthouse-web3/sdk": "^0.3.0",
     "@pushprotocol/restapi": "^1.4.45",
@@ -20,6 +20,7 @@
     "@xmtp/react-sdk": "^3.0.0",
     "assemblyai": "^4.0.0",
     "ethers": "^5.7.2",
+    "lodash": "^4.17.21",
     "protobufjs": "^7.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,6 +31,7 @@
     "wagmi": "^1.4.8"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

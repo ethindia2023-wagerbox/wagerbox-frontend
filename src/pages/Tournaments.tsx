@@ -2,6 +2,9 @@ import { useState } from "react";
 
 import TournamentThumb from "../components/TournamentThumb";
 import CreateTourModal from "../components/CreateTourModal";
+import { Link } from "react-router-dom";
+
+import { getMatches } from "../services/thegraph";
 
 const TOUR = [
     {
@@ -46,6 +49,13 @@ const TOUR = [
 
 const Tournaments = () => {
     const [inputTxt, setInputTxt] = useState<string>("");
+    const [matches, setMatches] = useState<any[]>([]);
+
+    const onClick = async () => {
+        const data = await getMatches();
+        setMatches(data);
+        console.log(data)
+    };
 
     return (
         <div className="bg-black p-5 min-h-screen flex flex-col gap-4">
@@ -57,15 +67,28 @@ const Tournaments = () => {
                 placeholder="Enter address"
                 onChange={(e: any) => setInputTxt(e.target.value)} />
 
-            {/* <button
-                className="btn btn-secondary text-black w-80 font-bold text-xl">
-                    Create a Tournament
-            </button> */}
-            <CreateTourModal />
+            <div className="flex flex-row gap-4">
+                <CreateTourModal />
+                <button className="btn btn-warning" onClick={onClick}>
+                    Fetch Matches from Chain
+                </button>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+                {matches.map((obj: any, i: number) =>
+                    <Link to={`/games/${i}`} key={i}>
+                        <div className="bg-slate-400 rounded p-5 line-clamp-1">
+                            {obj.id}
+                        </div>
+                    </Link>
+                )}
+            </div>
 
             <div className="grid grid-cols-3 gap-4">
                 {TOUR.map((obj: any, i: number) =>
-                    <TournamentThumb key={i} obj={obj}/>
+                    <Link to={`/games/${i}`} key={i}>
+                        <TournamentThumb obj={obj} />
+                    </Link>
                 )}
             </div>
         </div>

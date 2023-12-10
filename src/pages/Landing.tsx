@@ -4,10 +4,10 @@ const Landing = () => {
 
     const addButtons = () => {
         return <div className="flex flex-row gap-4 ">
-            <Link to="/explore">
+            <Link to="/tournaments">
                 <button className="btn bg-[#4E36C3] border-none text-white">Play Now</button>
             </Link>
-            <Link to="/explore">
+            <Link to="/tournaments">
                 <button className="btn bg-[#8D0076] border-none text-white">Learn Now</button>
             </Link>
         </div>

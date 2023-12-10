@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import { fetchQuery } from "@airstack/airstack-react";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -13,7 +13,7 @@ import {
     fetchNFTs
 } from '../services/airstack'
 
-const Airstack = () => {
+const Airstack = ({ user }: any) => {
     let [color] = useState("#ffffff");
     let [ensName] = useState<string>("vitalik.eth");
     let [blockchain] = useState<string>("ethereum");
@@ -46,13 +46,18 @@ const Airstack = () => {
             setLoading(true);
             const response = await fetchQuery(query);
             console.log(response);
-            setData(response.data.TokenBalances.TokenBalance)
+            setData(response?.data?.TokenBalances?.TokenBalance)
         } catch (error) {
             console.log(error)
         } finally {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        setInputTxt(user);
+        fetchNfts();
+    }, [user]);
 
     return (
         <>
@@ -67,12 +72,12 @@ const Airstack = () => {
             <div className="p-10 flex flex-col gap-4">
                 <input className="input input-bordered w-full" type="text" value={inputTxt} placeholder="Enter address" onChange={(e: any) => setInputTxt(e.target.value)} />
                 <div className="flex flex-row gap-4">
-                    <button className="btn btn-primary" onClick={fetchData}>Fetch Data</button>
+                    <button className="btn btn-primary" onClick={fetchData}>Fetch ENS Details</button>
                     <button className="btn btn-primary" onClick={fetchNfts}>Fetch NFT Data</button>
                 </div>
                 <div className="grid grid-cols-4 gap-4">
                     {data.map((k: any) =>
-                        <img key={k.tokenId} src={k.tokenNfts.contentValue.image.small}/>
+                        <img key={k.tokenId} src={k?.tokenNfts?.contentValue?.image?.small}/>
                     )}
                 </div>
             </div>
