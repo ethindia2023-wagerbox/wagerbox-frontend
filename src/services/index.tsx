@@ -10,5 +10,5 @@ export const askAI = async (msg: string) => {
         },
         data: JSON.stringify({ msg })
     });
-    return resp.data;
+    return resp.data?.msg;
 };

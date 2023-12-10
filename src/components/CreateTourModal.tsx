@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useWalletClient, useNetwork, useAccount } from "wagmi";
-import { getWagerBoxContract } from "../web3";
+import { getWagerBoxContract, createMatch } from "../web3";
+
+import {
+    uploadJson,
+    uploadFile
+} from '../services/lighthouse';
 
 const FORM_ELEMENTS = [
     { name: 'title', label: 'Tournament Title', placeholder: 'Enter Tournament Title' },
@@ -21,17 +26,18 @@ const CreateTourModal = () => {
     const modalRef = useRef<any>();
     const [showModal, setShowModal] = useState<boolean>(false);
     const [contract, setContract] = useState<any>();
+    const [files, setFiles] = useState<any>();
 
     const toggleModal = () => {
         setShowModal(!showModal)
         console.log(showModal)
     };
 
-    const formSubmit = (e: any) => {
+    const formSubmit = async (e: any) => {
         e.preventDefault();
         const formElements = e.currentTarget.elements as HTMLFormControlsCollection;
         const formData: { [key: string]: string } = {};
-    
+
         for (const element of formElements) {
             const input = element as HTMLInputElement;
             // Check if the element is an input and has a name attribute
@@ -40,17 +46,38 @@ const CreateTourModal = () => {
             }
         }
 
-        console.log(formData);
+        const ipfsUrl = await uploadFileToLighthouse();
+        formData.image_ipfs = ipfsUrl;
+        const detailsIPFS = await uploadJson(formData);
+        const resp = await createMatch(
+            contract,
+            detailsIPFS,
+            +formData.playerStake
+        );
+        console.log(resp);
+    };
 
+    const progressCallback = (progressData: any) => {
+        let percentageDone =
+            100 - (progressData?.total / progressData?.uploaded as any)?.toFixed(2)
+        console.log(percentageDone)
+    };
+
+    const uploadFileToLighthouse = async () => {
+        const ipfsUrl = await uploadFile(
+            files,
+            progressCallback
+        );
+        return ipfsUrl;
     };
 
     useEffect(() => {
         if (walletClient && chain) {
             const network = chain?.network
             getWagerBoxContract({ chain: network, connector })
-            .then((contract: any) => {
-                setContract(contract);
-            });
+                .then((contract: any) => {
+                    setContract(contract);
+                });
         }
     }, [walletClient, chain]);
 
@@ -81,7 +108,11 @@ const CreateTourModal = () => {
                                 </label>
                             )}
 
-                            <div>
+                            <div className='flex flex-col gap-4'>
+                                <label>Upload Image</label>
+                                <input
+                                    className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+                                    onChange={e => setFiles(e.target.files)} type="file" />
                             </div>
 
                         </div>

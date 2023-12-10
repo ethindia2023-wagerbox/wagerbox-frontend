@@ -6,6 +6,7 @@ import Landing from './pages/Landing';
 import Explore from './pages/Explore';
 import Media from './pages/Media';
 import Tournaments from './pages/Tournaments';
+import ViewGame from './pages/ViewGame';
 
 let router: RouteObject[] = [
     {
@@ -27,6 +28,11 @@ let router: RouteObject[] = [
         path: '/tournaments',
         id: 'tournaments',
         element: <Tournaments />
+    },
+    {
+        path: '/games/:id',
+        id: 'view-game',
+        element: <ViewGame />
     },
 ];
 

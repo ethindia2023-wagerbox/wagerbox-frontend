@@ -8,8 +8,10 @@ const JoinHuddleRoom = ({ roomId, address }: any) => {
     // const { peerIds } = usePeerIds({ roles: ["host", "co-host"] }); // Get Hosts And Cohost's peerIds
 
     // const localPeer: any = useLocalPeer({
-    //     onMetadataUpdated(metadata: any) {},
-    //   });
+    //     onMetadataUpdated(metadata: any) {
+    //         console.log(metadata);
+    //     },
+    // });
 
     const { joinRoom, leaveRoom } = useRoom({
         onJoin: () => {
@@ -28,33 +30,48 @@ const JoinHuddleRoom = ({ roomId, address }: any) => {
         }
     });
 
-    const JoinHuddleRoom = async () => {
+    const joinHuddleRoom = async (userType?: string) => {
         const roomDetail = await getHuddleRoomDetail(roomId);
 
-        const userType = roomDetail.hostWalletAddress.indexOf(address) === -1 ? 'guest' : 'host';
-
+        if (!userType) {
+            if (
+                roomDetail.hostWalletAddress.indexOf(address) !== -1
+            ) {
+                userType = 'host';
+            } else {
+                userType = 'guest'
+            }
+        }
         const obj = await getJoinRoomToken(roomId, userType);
         if (obj?.token) {
-            await joinRoom({
+            const k = await joinRoom({
                 roomId,
                 token: obj.token
             });
+            console.log(k)
         }
     };
 
-    const LeaveHuddleRoom = () => {
-        if(roomJoined) {
+    const leaveHuddleRoom = () => {
+        if (roomJoined) {
             leaveRoom();
         }
     };
 
+    const addBot = async () => {
+        await joinHuddleRoom("bot");
+    };
+
     return (
         <div className='flex flex-row gap-4'>
-            <button className='btn btn-success' onClick={JoinHuddleRoom}>
+            <button className='btn btn-success' onClick={() => joinHuddleRoom()}>
                 Join Room
             </button>
-            <button className='btn btn-error' onClick={LeaveHuddleRoom}>
+            <button className='btn btn-error' onClick={leaveHuddleRoom}>
                 Leave Room
+            </button>
+            <button className="btn btn-primary" onClick={addBot}>
+                Add a Bot
             </button>
         </div>
     );

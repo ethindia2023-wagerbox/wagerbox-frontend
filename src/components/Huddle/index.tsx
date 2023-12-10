@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
 import JoinHuddleRoom from "./joinRoom";
-import HuddleViewRoom from "./ViewRoom";
 
 import {
     createHuddleRoom,
@@ -19,6 +18,7 @@ const HuddleComp = () => {
     const [huddleRooms, setHuddleRooms] = useState<HuddleRoomObj[]>([]);
     const [roomTitle, setRoomTitle] = useState<string>("");
     const [newCreatedRoom, setNewCreatedRoom] = useState<HuddleCreateRoomResp>();
+
 
     const fetchHuddleRooms = async () => {
         const resp = await getHuddleRooms();
@@ -70,9 +70,6 @@ const HuddleComp = () => {
                 )}
             </div>
 
-            <div>
-                <HuddleViewRoom />
-            </div>
         </div>
     )
 };

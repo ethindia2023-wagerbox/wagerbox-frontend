@@ -76,8 +76,8 @@ export const createMatch = async (
         const playerStakeBigNumber = ethers.utils.parseUnits(playerStake.toString(), 'wei');
 
         const tx = await contract.createMatch(ipfsURL, playerStakeBigNumber);
-        await tx.wait();  // Wait for the transaction to be mined
-        console.log('Match Created!');
+        const resp = await tx.wait();  // Wait for the transaction to be mined
+        return resp;
     } catch (error) {
         console.error('Error creating Match: ', error);
     }
