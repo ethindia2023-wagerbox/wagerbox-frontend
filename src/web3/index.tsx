@@ -1,7 +1,8 @@
-import { ethers } from 'ethers';
+import { ethers, providers } from 'ethers';
 
 import WagerBoxContractABI from './contracts/WagerBoxABI.json';
 import WagerBoxTokenABI from './contracts/WagerBoxToken.json';
+import { WalletClient } from 'wagmi';
 
 const WagerBoxToken: any = {
     sepolia: "0xde15Ea1d35447b1422af66141C0D5DbD758a5C5a",
@@ -17,11 +18,35 @@ const WagerBoxContract: any = {
     zkEVM: "0xD64e0acF9F20da407df2dA759F43DF7e7C0D6BDb"
 };
 
+const CCIP: any = {
+    sepolia: {
+        router: "0x0bf3de8c5d3e8a2b34d2beeb17abfcebaf363a59",
+        link: "0x779877A7B0D9E8603169DdbD7836e478b4624789",
+    },
+    mumbai: {
+        router: "0x1035cabc275068e0f4b745a29cedf38e13af41b1",
+        link: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
+    },
+};
+
+export function walletClientToProvider(walletClient: WalletClient) {
+    const { chain, transport } = walletClient
+    const network = {
+        chainId: chain.id,
+        name: chain.name,
+        ensAddress: chain.contracts?.ensRegistry?.address,
+    }
+    const provider = new providers.Web3Provider(transport as any, network)
+    return provider
+};
+
 // This function will set up a contract instance and allow you to call its functions
-export const getWagerBoxContract = ({
+export const getWagerBoxContract = async ({
     chain,
-    signer
+    connector
 }: any) => {
+    const provider = await connector.getProvider();
+    const signer = new ethers.providers.Web3Provider(provider).getSigner()
     const contract = new ethers.Contract(
         WagerBoxContract[chain],
         WagerBoxContractABI.abi,

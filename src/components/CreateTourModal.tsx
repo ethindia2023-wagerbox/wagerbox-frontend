@@ -1,4 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useWalletClient, useNetwork, useAccount } from "wagmi";
+import { getWagerBoxContract } from "../web3";
 
 const FORM_ELEMENTS = [
     { name: 'title', label: 'Tournament Title', placeholder: 'Enter Tournament Title' },
@@ -12,8 +14,13 @@ const FORM_ELEMENTS = [
 ];
 
 const CreateTourModal = () => {
+    const { connector } = useAccount();
+    const { data: walletClient } = useWalletClient();
+    const { chain } = useNetwork();
+
     const modalRef = useRef<any>();
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [contract, setContract] = useState<any>();
 
     const toggleModal = () => {
         setShowModal(!showModal)
@@ -36,6 +43,16 @@ const CreateTourModal = () => {
         console.log(formData);
 
     };
+
+    useEffect(() => {
+        if (walletClient && chain) {
+            const network = chain?.network
+            getWagerBoxContract({ chain: network, connector })
+            .then((contract: any) => {
+                setContract(contract);
+            });
+        }
+    }, [walletClient, chain]);
 
     return (
         <>

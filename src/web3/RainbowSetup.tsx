@@ -9,41 +9,26 @@ import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
     mainnet,
     polygon,
-    optimism,
     arbitrum,
     base,
-    zora,
-    polygonMumbai
+    polygonMumbai,
+    sepolia,
+    scrollTestnet,
+    polygonZkEvmTestnet
 } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 const ALCHEMY_KEY = import.meta.env.VITE_ALCHEMY_KEY;
 
-const sepolia: Chain = {
-    id: 11155111,
-    name: 'Sepolia',
-    network: 'sepolia',
-    iconUrl: 'https://assets-global.website-files.com/5f973c970bea5548ad4287ef/61e70d05f3c7146ab79e66bb_ethereum-eth.svg',
-    iconBackground: '#fff',
-    nativeCurrency: {
-      decimals: 18,
-      name: 'Sepolia',
-      symbol: 'SETH',
-    },
-    rpcUrls: {
-      public: { http: ['https://eth-sepolia.g.alchemy.com/v2/EYz4orWLK-ILJo4YVgrYkzyhWzdgNb2H'] },
-      default: { http: ['https://eth-sepolia.g.alchemy.com/v2/EYz4orWLK-ILJo4YVgrYkzyhWzdgNb2H'] },
-    },
-    blockExplorers: {
-      default: { name: 'SepoliaScan', url: 'https://sepolia.etherscan.io/' },
-      etherscan: { name: 'SepoliaScan', url: 'https://sepolia.etherscan.io/' },
-    },
-    testnet: true,
-  };
-
 const { chains, publicClient } = configureChains(
-    [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, polygonMumbai],
+    [
+      mainnet, polygon,
+      arbitrum, base,
+      sepolia, polygonMumbai,
+      scrollTestnet,
+      polygonZkEvmTestnet
+    ],
     [
         alchemyProvider({ apiKey: ALCHEMY_KEY }),
         publicProvider()
