@@ -18,16 +18,16 @@ const WagerBoxContract: any = {
     zkEVM: "0xD64e0acF9F20da407df2dA759F43DF7e7C0D6BDb"
 };
 
-const CCIP: any = {
-    sepolia: {
-        router: "0x0bf3de8c5d3e8a2b34d2beeb17abfcebaf363a59",
-        link: "0x779877A7B0D9E8603169DdbD7836e478b4624789",
-    },
-    mumbai: {
-        router: "0x1035cabc275068e0f4b745a29cedf38e13af41b1",
-        link: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
-    },
-};
+// const CCIP: any = {
+//     sepolia: {
+//         router: "0x0bf3de8c5d3e8a2b34d2beeb17abfcebaf363a59",
+//         link: "0x779877A7B0D9E8603169DdbD7836e478b4624789",
+//     },
+//     mumbai: {
+//         router: "0x1035cabc275068e0f4b745a29cedf38e13af41b1",
+//         link: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
+//     },
+// };
 
 export function walletClientToProvider(walletClient: WalletClient) {
     const { chain, transport } = walletClient

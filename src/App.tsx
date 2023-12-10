@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 
 import { HuddleProvider, HuddleClient } from '@huddle01/react';
-import { XMTPProvider } from "@xmtp/react-sdk";
+// import { XMTPProvider } from "@xmtp/react-sdk";
 
 
 

@@ -1,7 +1,7 @@
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
-    Chain,
+    // Chain,
     getDefaultWallets,
     RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';

@@ -4,15 +4,15 @@ import Airstack from "../components/Airstack";
 
 import { useParams } from "react-router-dom";
 
-import {getMatches} from "../services/thegraph";
+// import {getMatches} from "../services/thegraph";
 
 const Explore = () => {
     const { user } = useParams();
 
-    const onClick = async () => {
-        const data = await getMatches();
-        console.log(data)
-    };
+    // const onClick = async () => {
+    //     const data = await getMatches();
+    //     console.log(data)
+    // };
 
     return (
         <div>

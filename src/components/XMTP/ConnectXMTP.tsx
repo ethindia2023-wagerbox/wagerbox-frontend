@@ -1,14 +1,14 @@
 import { Signer, useClient } from "@xmtp/react-sdk";
 import { useCallback } from "react";
 
-export const CreateClient: React.FC<{ signer: Signer }> = ({ signer }) => {
+export const CreateClient: React.FC<{ signer: Signer }> = () => {
     const { client, error, isLoading, initialize } = useClient();
 
     const handleConnect = useCallback(async () => {
-        const options = {
-            persistConversations: false,
-            env: "dev",
-        };
+        // const options = {
+        //     persistConversations: false,
+        //     env: "dev",
+        // };
         // await initialize({ keys, options, signer });
     }, [initialize]);
 
